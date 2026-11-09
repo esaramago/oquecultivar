@@ -1,9 +1,14 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import CultureCard from '@/components/CultureCard.svelte'
   import Grid from '@/components/Grid.svelte'
   import { getCultureTypeById } from '@/lib/config'
   import { pb } from '@/lib/pocketbase'
-  import type { CultureRecord } from '@/types/cultivo'
+  import type {
+    CultureRecord,
+    CultureScheduleRecord,
+    RegionId
+  } from '@/types/cultivo'
   import type WaInput from '@awesome.me/webawesome/dist/components/input/input.js'
   import type WaPopup from '@awesome.me/webawesome/dist/components/popup/popup.js'
 
@@ -11,6 +16,8 @@
     selectedCultureId = $bindable(''),
     selectedCulture = $bindable<CultureRecord | null>(null),
     cultures = $bindable<CultureRecord[]>([]),
+    regionId = null,
+    schedules = undefined,
     label = 'Cultura',
     placeholder = 'Pesquisar cultura...',
     onchange,
@@ -19,6 +26,8 @@
     selectedCultureId?: string
     selectedCulture?: CultureRecord | null
     cultures?: CultureRecord[]
+    regionId?: RegionId | null
+    schedules?: CultureScheduleRecord[]
     label?: string
     placeholder?: string
     onchange?: (detail: { culture: CultureRecord | null }) => void
@@ -272,19 +281,10 @@
   </div>
 
   {#if selectedCulture}
-    <wa-card>
-      <Grid justify="space-between" align="center" wrap={true}>
-        <Grid align="center" gap="s">
-          <wa-icon name="seedling"></wa-icon>
-          <strong>{selectedCulture.name}</strong>
-          {#if selectedCulture.variant}
-            <span>({selectedCulture.variant})</span>
-          {/if}
-        </Grid>
-        <wa-badge variant="brand">
-          {getCultureTypeById(selectedCulture.type)?.name ?? selectedCulture.type}
-        </wa-badge>
-      </Grid>
-    </wa-card>
+    <CultureCard
+      culture={selectedCulture}
+      {regionId}
+      {schedules}
+    />
   {/if}
 </Grid>

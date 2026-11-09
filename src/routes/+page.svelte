@@ -60,6 +60,7 @@
         <CultureAutocomplete
           bind:selectedCultureId
           bind:selectedCulture
+          regionId={selectedRegionId}
         />
       </wa-tab-panel>
     </wa-tab-group>
