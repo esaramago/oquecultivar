@@ -13,14 +13,13 @@ Check the [regions](./regions.webp) for more information about the regions.
 With the users permission, it can guess the region based on the user's location.
 **Confirmed by Agent:** These 6 regions match the standard agro-climatic zones of Portugal as referenced in `regions.webp` (hortasbiologicas.pt), comprehensively mapping all 18 mainland districts plus the 2 autonomous island regions (Açores and Madeira).
 
-## Month
-A Month must be selected. Either by the user, or based on today's date
 
 ## Cultures
 
 There are two views. One based on the selected month and the other based on the selected culture.
 
-### Based on the month 
+### Based on the month
+A Month must be selected. Either by the user, or based on today's date.
 It shows a table, for the month and region selected, with the following fields:
 
 | Field      | Examples                                         | Description        
@@ -31,4 +30,4 @@ It shows a table, for the month and region selected, with the following fields:
 
 ### Based on the culture
 It shows an autocomplete with every culture in the database.
-By selecting one, it shows wich months to plant, seed and harvest, for the selected region.
+By selecting one, it shows which months to plant, seed and harvest, for the chosen culture in the selected region.

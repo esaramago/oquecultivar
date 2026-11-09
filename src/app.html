@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-PT" class="wa-dark wa-cloak">
+<html lang="pt-PT" class="wa-cloak">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="%sveltekit.assets%/favicon.png" />
@@ -24,8 +24,19 @@
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
     <link rel="icon" href="/favicon.ico" />
+
+    <script nonce="%sveltekit.nonce%">
+      (function () {
+        const media = window.matchMedia('(prefers-color-scheme: dark)');
+        function applyTheme(isDark) {
+          document.documentElement.classList.toggle('wa-dark', isDark);
+        }
+        applyTheme(media.matches);
+        media.addEventListener('change', (e) => applyTheme(e.matches));
+      })();
+    </script>
 	
-	%sveltekit.head%
+	  %sveltekit.head%
 
   </head>
   <body data-sveltekit-preload-data="hover">

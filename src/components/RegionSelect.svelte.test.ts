@@ -15,16 +15,16 @@ describe('RegionSelect.svelte', () => {
     expect(buttonEl?.textContent).toContain('Usar localização atual')
   })
 
-  it('renders district options grouped with region headers', async () => {
+  it('renders district options in alphabetical order', async () => {
     const { container } = await render(RegionSelect)
 
-    const options = container.querySelectorAll('wa-option')
-    expect(options.length).toBeGreaterThan(20)
+    const options = Array.from(container.querySelectorAll('wa-option'))
+    expect(options.length).toBe(20)
 
-    const vianaOption = Array.from(options).find(
-      (opt) => opt.getAttribute('value') === 'viana-do-castelo'
-    )
-    expect(vianaOption).toBeDefined()
+    const optionLabels = options.map((opt) => opt.textContent?.trim())
+    expect(optionLabels[0]).toBe('Açores')
+    expect(optionLabels[1]).toBe('Aveiro')
+    expect(optionLabels[optionLabels.length - 1]).toBe('Viseu')
   })
 
   it('renders region information when a district is pre-selected', async () => {

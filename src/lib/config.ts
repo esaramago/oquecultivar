@@ -71,11 +71,15 @@ export const DISTRICTS: readonly District[] = [
 	{ id: 'beja', name: 'Beja', regionId: 4 },
 	{ id: 'castelo-branco', name: 'Castelo Branco', regionId: 4 },
 
-	{ id: 'faro', name: 'Faro (Algarve)', regionId: 5 },
+	{ id: 'faro', name: 'Faro', regionId: 5 },
 
-	{ id: 'madeira', name: 'Região Autónoma da Madeira', regionId: 6 },
-	{ id: 'acores', name: 'Região Autónoma dos Açores', regionId: 6 }
+	{ id: 'madeira', name: 'Madeira', regionId: 6 },
+	{ id: 'acores', name: 'Açores', regionId: 6 }
 ] as const
+
+export const SORTED_DISTRICTS: readonly District[] = [...DISTRICTS].sort((a, b) =>
+	a.name.localeCompare(b.name, 'pt-PT')
+)
 
 export const MONTHS: readonly MonthInfo[] = [
 	{ id: 1, name: 'Janeiro', shortName: 'Jan' },

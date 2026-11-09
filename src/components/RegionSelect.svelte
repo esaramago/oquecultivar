@@ -2,10 +2,9 @@
   import { onMount } from 'svelte'
   import Grid from '@/components/Grid.svelte'
   import {
-    REGIONS,
+    SORTED_DISTRICTS,
     getDistrictById,
-    getRegionById,
-    getDistrictsByRegion
+    getRegionById
   } from '@/lib/config'
   import { findNearestDistrict } from '@/lib/geo'
   import type { RegionId, District, Region } from '@/types/cultivo'
@@ -145,18 +144,10 @@
       >
         <wa-icon slot="start" name="location-dot"></wa-icon>
 
-        {#each REGIONS as region, index}
-          {#if index > 0}
-            <wa-divider></wa-divider>
-          {/if}
-          <wa-option disabled>
-            ── Região {region.id}: {region.name} ──
+        {#each SORTED_DISTRICTS as district}
+          <wa-option value={district.id}>
+            {district.name}
           </wa-option>
-          {#each getDistrictsByRegion(region.id) as district}
-            <wa-option value={district.id}>
-              {district.name}
-            </wa-option>
-          {/each}
         {/each}
       </wa-select>
     </div>
