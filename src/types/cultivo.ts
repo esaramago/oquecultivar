@@ -22,9 +22,11 @@ export interface MonthInfo {
 }
 
 export type ActionId = 'sementeira_direta' | 'viveiro' | 'plantar' | 'colher'
+export type ActionCategory = 'semear' | 'plantar' | 'colher'
 
 export interface CultivationAction {
 	id: ActionId
+	category: ActionCategory
 	name: string
 	shortName: string
 	description: string

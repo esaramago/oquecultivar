@@ -1,9 +1,17 @@
 import { page } from 'vitest/browser'
-import { describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { render } from 'vitest-browser-svelte'
 import RegionSelect from './RegionSelect.svelte'
 
 describe('RegionSelect.svelte', () => {
+  beforeEach(() => {
+    localStorage.clear()
+  })
+
+  afterEach(() => {
+    localStorage.clear()
+  })
+
   it('renders select element and locate button', async () => {
     const { container } = await render(RegionSelect)
 
@@ -36,5 +44,15 @@ describe('RegionSelect.svelte', () => {
     expect(card).not.toBeNull()
     expect(card?.textContent).toContain('Região 3')
     expect(card?.textContent).toContain('Lisboa, Setúbal e Vale do Tejo')
+  })
+
+  it('restores district from localStorage on mount if no district is pre-selected', async () => {
+    localStorage.setItem('oquecultivar_district', 'porto')
+    const { container } = await render(RegionSelect)
+
+    const card = container.querySelector('wa-card')
+    expect(card).not.toBeNull()
+    expect(card?.textContent).toContain('Região 1')
+    expect(card?.textContent).toContain('Litoral norte e centro')
   })
 })

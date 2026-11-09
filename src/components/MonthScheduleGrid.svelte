@@ -245,7 +245,28 @@
     <!-- Action Filters and Full Year toggle -->
     <Grid justify="space-between" align="center" wrap={true}>
       <Grid align="center" gap="s" wrap={true}>
-        {#each ACTIONS as action (action.id)}
+        <wa-button-group label="Sementeira">
+          {#each ACTIONS.filter((a) => a.category === 'semear') as action (action.id)}
+            {@const isActive = selectedActionSet.has(action.id)}
+            <wa-button
+              role="button"
+              tabindex="0"
+              size="s"
+              pill
+              variant={isActive ? action.badgeVariant : 'neutral'}
+              appearance={isActive ? 'filled' : 'outlined'}
+              onclick={() => toggleAction(action.id)}
+              onkeydown={(e: KeyboardEvent) => handleActionKeydown(e, action.id)}
+            >
+              {#if isActive}
+                <wa-icon slot="start" name="check"></wa-icon>
+              {/if}
+              {action.name}
+            </wa-button>
+          {/each}
+        </wa-button-group>
+
+        {#each ACTIONS.filter((a) => a.category !== 'semear') as action (action.id)}
           {@const isActive = selectedActionSet.has(action.id)}
           <wa-button
             role="button"

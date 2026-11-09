@@ -293,27 +293,30 @@ describe('MonthScheduleGrid.svelte', () => {
     // Index 6: Jun (Colher)
     // Index 7: Jul (Colher)
     expect(alfaceCells[1]?.textContent?.trim()).toBe('')
-    expect(alfaceCells[3]?.textContent?.trim()).toBe('Semear')
-    expect(alfaceCells[4]?.textContent?.trim()).toBe('Semear')
+    expect(alfaceCells[3]?.textContent?.trim()).toBe('Semear (Direta)')
+    expect(alfaceCells[4]?.textContent?.trim()).toBe('Semear (Direta)')
 
     const maiBadges = Array.from(alfaceCells[5]?.querySelectorAll('wa-badge') ?? []).map((b) =>
       b.textContent?.trim()
     )
-    expect(maiBadges).toEqual(['Semear', 'Colher'])
+    expect(maiBadges).toEqual(['Semear (Direta)', 'Colher'])
 
     expect(alfaceCells[6]?.textContent?.trim()).toBe('Colher')
     expect(alfaceCells[7]?.textContent?.trim()).toBe('Colher')
   })
 
-  it('renders an action legend at the top', async () => {
+  it('renders an action legend at the top with sementeira grouped in wa-button-group', async () => {
     const { container } = await render(MonthScheduleGrid, {
       regionId: 1,
       month: 3,
       schedules: mockSchedules
     })
 
-    expect(container.textContent).toContain('Sementeira direta')
-    expect(container.textContent).toContain('Sementeira em viveiro')
+    const buttonGroup = container.querySelector('wa-button-group[label="Sementeira"]')
+    expect(buttonGroup).not.toBeNull()
+    expect(buttonGroup?.textContent).toContain('Sementeira direta')
+    expect(buttonGroup?.textContent).toContain('Sementeira em viveiro')
+
     expect(container.textContent).toContain('Plantação / Transplante')
     expect(container.textContent).toContain('Colheita')
   })

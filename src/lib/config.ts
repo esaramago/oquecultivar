@@ -2,8 +2,10 @@ import type {
 	Region,
 	District,
 	MonthInfo,
+	ActionId,
 	CultivationAction,
-	CultureTypeInfo
+	CultureTypeInfo,
+	ActionCategory
 } from '@/types/cultivo'
 
 export const WEBSITE_TITLE = 'O Que Cultivar'
@@ -99,20 +101,23 @@ export const MONTHS: readonly MonthInfo[] = [
 export const ACTIONS: readonly CultivationAction[] = [
 	{
 		id: 'sementeira_direta',
+		category: 'semear',
 		name: 'Sementeira direta',
-		shortName: 'Semear',
+		shortName: 'Semear (Direta)',
 		description: 'Semear as sementes diretamente no solo definitivo.',
 		badgeVariant: 'brand'
 	},
 	{
 		id: 'viveiro',
+		category: 'semear',
 		name: 'Sementeira em viveiro',
-		shortName: 'Viveiro',
+		shortName: 'Semear (Viveiro)',
 		description: 'Semear em alfobre, tabuleiros ou estufa para posterior transplante.',
 		badgeVariant: 'warning'
 	},
 	{
 		id: 'plantar',
+		category: 'plantar',
 		name: 'Plantação / Transplante',
 		shortName: 'Plantar',
 		description: 'Transplantar as mudas de viveiro ou plantar batatas/bolbos no solo.',
@@ -120,6 +125,7 @@ export const ACTIONS: readonly CultivationAction[] = [
 	},
 	{
 		id: 'colher',
+		category: 'colher',
 		name: 'Colheita',
 		shortName: 'Colher',
 		description: 'Colher os produtos prontos para consumo.',
@@ -157,6 +163,14 @@ export function getMonthById(id: number): MonthInfo | undefined {
 
 export function getActionById(id: string): CultivationAction | undefined {
 	return ACTIONS.find((a) => a.id === id)
+}
+
+export function getActionsByCategory(category: ActionCategory): CultivationAction[] {
+	return ACTIONS.filter((a) => a.category === category)
+}
+
+export function isSementeiraAction(actionId: ActionId): boolean {
+	return actionId === 'sementeira_direta' || actionId === 'viveiro'
 }
 
 export function getCultureTypeById(id: string): CultureTypeInfo | undefined {
