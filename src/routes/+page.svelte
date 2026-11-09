@@ -2,7 +2,7 @@
   import CultureAutocomplete from '@/components/CultureAutocomplete.svelte'
   import Grid from '@/components/Grid.svelte'
   import HeadMeta from '@/components/HeadMeta.svelte'
-  import MonthScheduleTable from '@/components/MonthScheduleTable.svelte'
+  import MonthScheduleGrid from '@/components/MonthScheduleGrid.svelte'
   import MonthSelect from '@/components/MonthSelect.svelte'
   import RegionSelect from '@/components/RegionSelect.svelte'
   import type { CultureRecord, MonthNumber, RegionId } from '@/types/cultivo'
@@ -49,7 +49,7 @@
           <MonthSelect
             bind:selectedMonth
           />
-          <MonthScheduleTable
+          <MonthScheduleGrid
             regionId={selectedRegionId}
             month={selectedMonth}
           />
