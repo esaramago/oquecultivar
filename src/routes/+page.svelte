@@ -1,5 +1,6 @@
 <script lang="ts">
   import CultureAutocomplete from '@/components/CultureAutocomplete.svelte'
+  import CultureCard from '@/components/CultureCard.svelte'
   import Grid from '@/components/Grid.svelte'
   import HeadMeta from '@/components/HeadMeta.svelte'
   import MonthScheduleGrid from '@/components/MonthScheduleGrid.svelte'
@@ -12,13 +13,10 @@
   let selectedMonth = $state<MonthNumber>((new Date().getMonth() + 1) as MonthNumber)
   let selectedCultureId = $state('')
   let selectedCulture = $state<CultureRecord | null>(null)
-  let activeTab = $state<'mes' | 'cultura'>('mes')
 
-  function handleTabShow(event: Event) {
-    const customEvent = event as CustomEvent<{ name: string }>
-    if (customEvent.detail?.name === 'mes' || customEvent.detail?.name === 'cultura') {
-      activeTab = customEvent.detail.name
-    }
+  function handleMonthChange() {
+    selectedCulture = null
+    selectedCultureId = ''
   }
 </script>
 
@@ -33,36 +31,28 @@
       bind:selectedRegionId
     />
 
-    <wa-tab-group
-      active={activeTab}
-      onwa-tab-show={handleTabShow}
-    >
-      <wa-tab slot="nav" panel="mes" active={activeTab === 'mes' ? true : undefined}>
-        Mês
-      </wa-tab>
-      <wa-tab slot="nav" panel="cultura" active={activeTab === 'cultura' ? true : undefined}>
-        Cultura
-      </wa-tab>
+    <Grid break="mobile" fullWidth>
+      <MonthSelect
+        bind:selectedMonth
+        onchange={handleMonthChange}
+      />
+      <CultureAutocomplete
+        bind:selectedCultureId
+        bind:selectedCulture
+        showCard={false}
+      />
+    </Grid>
 
-      <wa-tab-panel name="mes" active={activeTab === 'mes' ? true : undefined}>
-        <Grid direction="column" gap="l">
-          <MonthSelect
-            bind:selectedMonth
-          />
-          <MonthScheduleGrid
-            regionId={selectedRegionId}
-            month={selectedMonth}
-          />
-        </Grid>
-      </wa-tab-panel>
-
-      <wa-tab-panel name="cultura" active={activeTab === 'cultura' ? true : undefined}>
-        <CultureAutocomplete
-          bind:selectedCultureId
-          bind:selectedCulture
-          regionId={selectedRegionId}
-        />
-      </wa-tab-panel>
-    </wa-tab-group>
+    {#if selectedCulture}
+      <CultureCard
+        culture={selectedCulture}
+        regionId={selectedRegionId}
+      />
+    {:else}
+      <MonthScheduleGrid
+        regionId={selectedRegionId}
+        month={selectedMonth}
+      />
+    {/if}
   </Grid>
 </div>

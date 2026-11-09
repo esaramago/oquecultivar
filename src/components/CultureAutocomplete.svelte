@@ -18,6 +18,7 @@
     cultures = $bindable<CultureRecord[]>([]),
     regionId = null,
     schedules = undefined,
+    showCard = true,
     label = 'Cultura',
     placeholder = 'Pesquisar cultura...',
     onchange,
@@ -28,6 +29,7 @@
     cultures?: CultureRecord[]
     regionId?: RegionId | null
     schedules?: CultureScheduleRecord[]
+    showCard?: boolean
     label?: string
     placeholder?: string
     onchange?: (detail: { culture: CultureRecord | null }) => void
@@ -86,6 +88,9 @@
       }
     } else if (!selectedCultureId && selectedCulture) {
       selectedCulture = null
+      searchQuery = ''
+      syncInputValue('')
+    } else if (!selectedCultureId && !selectedCulture && searchQuery && !isOpen) {
       searchQuery = ''
       syncInputValue('')
     }
@@ -201,7 +206,7 @@
   })
 </script>
 
-<Grid direction="column" gap="l">
+{#snippet autocompleteInput()}
   <div bind:this={containerEl}>
     <wa-popup
       bind:this={popupEl}
@@ -279,12 +284,17 @@
       {/if}
     </wa-popup>
   </div>
+{/snippet}
 
-  {#if selectedCulture}
+{#if showCard && selectedCulture}
+  <Grid direction="column" gap="l">
+    {@render autocompleteInput()}
     <CultureCard
       culture={selectedCulture}
       {regionId}
       {schedules}
     />
-  {/if}
-</Grid>
+  </Grid>
+{:else}
+  {@render autocompleteInput()}
+{/if}
