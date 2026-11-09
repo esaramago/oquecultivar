@@ -208,7 +208,7 @@
           <tr>
             <th>Cultura</th>
             {#each MONTHS as m (m.id)}
-              <th>
+              <th class:--current={m.id === month}>
                 {#if m.id === month}
                   <strong>{m.shortName}</strong>
                 {:else}
@@ -235,7 +235,7 @@
               </td>
               {#each MONTHS as m (m.id)}
                 {@const actions = row.actionsByMonth.get(m.id) ?? []}
-                <td>
+                <td class:--current={m.id === month}>
                   {#if actions.length > 0}
                     <Grid direction="column" gap="xs">
                       {#each actions as action (action.id)}
@@ -257,3 +257,16 @@
     </wa-scroller>
   </Grid>
 {/if}
+
+
+<style>
+
+table {
+  wa-badge {
+    opacity: .5;
+  }
+  .--current wa-badge {
+    opacity: 1;
+  }
+}
+</style>

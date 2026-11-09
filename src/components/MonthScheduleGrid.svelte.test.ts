@@ -150,10 +150,35 @@ describe('MonthScheduleGrid.svelte', () => {
     // Index 3 is 'Mar' (0: Cultura, 1: Jan, 2: Fev, 3: Mar)
     const marchHeader = headers[3]
     expect(marchHeader?.querySelector('strong')?.textContent?.trim()).toBe('Mar')
+    expect(marchHeader?.classList.contains('--current')).toBe(true)
 
-    // Other month headers should not be in strong
+    // Other month headers should not be in strong and not have --current
     const febHeader = headers[2]
     expect(febHeader?.querySelector('strong')).toBeNull()
+    expect(febHeader?.classList.contains('--current')).toBe(false)
+  })
+
+  it('adds --current class to td elements of the selected month', async () => {
+    const { container } = await render(MonthScheduleGrid, {
+      regionId: 1,
+      month: 3,
+      schedules: mockSchedules
+    })
+
+    const rows = Array.from(container.querySelectorAll('tbody tr'))
+    for (const row of rows) {
+      const cells = Array.from(row.querySelectorAll('td'))
+      // Index 0: culture info
+      expect(cells[0]?.classList.contains('--current')).toBe(false)
+      // Index 1 (Jan: m.id=1): false
+      expect(cells[1]?.classList.contains('--current')).toBe(false)
+      // Index 2 (Fev: m.id=2): false
+      expect(cells[2]?.classList.contains('--current')).toBe(false)
+      // Index 3 (Mar: m.id=3): true
+      expect(cells[3]?.classList.contains('--current')).toBe(true)
+      // Index 4 (Abr: m.id=4): false
+      expect(cells[4]?.classList.contains('--current')).toBe(false)
+    }
   })
 
   it('only lists cultures that have actions in the selected month', async () => {
