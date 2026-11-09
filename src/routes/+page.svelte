@@ -2,6 +2,7 @@
   import CultureAutocomplete from '@/components/CultureAutocomplete.svelte'
   import Grid from '@/components/Grid.svelte'
   import HeadMeta from '@/components/HeadMeta.svelte'
+  import MonthScheduleTable from '@/components/MonthScheduleTable.svelte'
   import MonthSelect from '@/components/MonthSelect.svelte'
   import RegionSelect from '@/components/RegionSelect.svelte'
   import type { CultureRecord, MonthNumber, RegionId } from '@/types/cultivo'
@@ -44,9 +45,15 @@
       </wa-tab>
 
       <wa-tab-panel name="mes" active={activeTab === 'mes' ? true : undefined}>
-        <MonthSelect
-          bind:selectedMonth
-        />
+        <Grid direction="column" gap="l">
+          <MonthSelect
+            bind:selectedMonth
+          />
+          <MonthScheduleTable
+            regionId={selectedRegionId}
+            month={selectedMonth}
+          />
+        </Grid>
       </wa-tab-panel>
 
       <wa-tab-panel name="cultura" active={activeTab === 'cultura' ? true : undefined}>

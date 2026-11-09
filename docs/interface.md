@@ -25,7 +25,7 @@ It shows a table, for the month and region selected, with the following fields:
 | Field      | Examples                                         | Description        
 |------------|--------------------------------------------------|------------
 | Culture    | Alface, Cebola, Batata, etc                      | Types of cultures
-| Ação       | Sementeira direta, viveiro, Plantar, Colher      | Action to take     
+| Action     | Sementeira direta, viveiro, Plantar, Colher      | Action to take     
 | Month      | Jan, Fev, Mar, etc                               | Months to take the action for that culture
 
 ### Based on the culture
