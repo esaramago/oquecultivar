@@ -1,0 +1,36 @@
+<script lang="ts">
+  import '@/css/main.css'
+  import '@awesome.me/webawesome/dist/styles/webawesome.css'
+  import '@awesome.me/webawesome/dist/components/badge/badge.js'
+  import '@awesome.me/webawesome/dist/components/button/button.js'
+  import '@awesome.me/webawesome/dist/components/card/card.js'
+  import '@awesome.me/webawesome/dist/components/icon/icon.js'
+  import '@awesome.me/webawesome/dist/components/select/select.js'
+  import '@awesome.me/webawesome/dist/components/option/option.js'
+  import '@awesome.me/webawesome/dist/components/divider/divider.js'
+  import '@awesome.me/webawesome/dist/components/spinner/spinner.js'
+  import '@awesome.me/webawesome/dist/components/callout/callout.js'
+  import Header from '@/components/Header.svelte'
+  import Footer from '@/components/Footer.svelte'
+  import Grid from '@/components/Grid.svelte'
+  import { dev } from '$app/environment'
+  import { UMAMI_URL, UMAMI_WEBSITE_ID } from '@/lib/config'
+
+  let { children } = $props()
+</script>
+
+<svelte:head>
+  {#if !dev && UMAMI_URL && UMAMI_WEBSITE_ID}
+    <script
+      defer
+      src="{UMAMI_URL}/script.js"
+      data-website-id={UMAMI_WEBSITE_ID}
+    ></script>
+  {/if}
+</svelte:head>
+
+<Grid direction="column" gap="2xl">
+  <Header />
+  {@render children?.()}
+  <Footer />
+</Grid>

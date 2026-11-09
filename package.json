@@ -1,0 +1,39 @@
+{
+  "name": "oquecultivar",
+  "description": "A simple PWA for small Portuguese farmers to know when to plant what",
+  "license": "GPL-3.0",
+  "author": {
+    "name": "Emanuel Saramago",
+    "email": "dev@emanuelsaramago.com"
+  },
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "docker compose up -d pocketbase && vite dev",
+    "logs": "docker compose logs -f pocketbase",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "test": "vitest",
+    "test:run": "vitest run"
+  },
+  "dependencies": {
+    "@awesome.me/webawesome": "^3.14.0",
+    "pocketbase": "^0.28.2"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-node": "^5.5.8",
+    "@sveltejs/kit": "^2.70.4",
+    "@sveltejs/vite-plugin-svelte": "^5.1.1",
+    "@types/node": "^26.6.6",
+    "@vitest/browser": "^5.1.0",
+    "@vitest/browser-playwright": "^5.1.0",
+    "svelte": "^5.57.3",
+    "svelte-check": "^4.7.8",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.5",
+    "vitest": "^5.1.0",
+    "vitest-browser-svelte": "^3.1.0"
+  }
+}

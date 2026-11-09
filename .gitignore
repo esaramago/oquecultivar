@@ -1,0 +1,22 @@
+node_modules
+.svelte-kit
+build
+.env
+.env.*
+!.env.example
+pb_data
+
+/docs/*.webp
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

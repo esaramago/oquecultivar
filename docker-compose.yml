@@ -1,0 +1,28 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - VITE_POCKETBASE_URL=${VITE_POCKETBASE_URL:-http://localhost:8090}
+    restart: unless-stopped
+    ports:
+      - "${PORT:-5173}:5173"
+    environment:
+      - NODE_ENV=production
+      - PORT=5173
+      - VITE_POCKETBASE_URL=${VITE_POCKETBASE_URL:-http://localhost:8090}
+    depends_on:
+      - pocketbase
+
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:latest
+    restart: unless-stopped
+    ports:
+      - "${POCKETBASE_PORT:-8090}:8090"
+    volumes:
+      - pb_data:/pb_data
+      - ./pb_migrations:/pb_migrations
+
+volumes:
+  pb_data:
