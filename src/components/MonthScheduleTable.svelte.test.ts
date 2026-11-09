@@ -95,7 +95,7 @@ describe('MonthScheduleTable.svelte', () => {
     const callout = container.querySelector('wa-callout')
     expect(callout).not.toBeNull()
     expect(callout?.textContent).toContain('Selecione um distrito acima')
-    expect(container.querySelector('table')).toBeNull()
+    expect(container.querySelector('wa-card')).toBeNull()
   })
 
   it('displays empty message when no cultures match the selected month and region', async () => {
@@ -108,21 +108,18 @@ describe('MonthScheduleTable.svelte', () => {
     const callout = container.querySelector('wa-callout')
     expect(callout).not.toBeNull()
     expect(callout?.textContent).toContain('Não foram encontradas ações de cultivo')
-    expect(container.querySelector('table')).toBeNull()
+    expect(container.querySelector('wa-card')).toBeNull()
   })
 
-  it('renders the table with Culture, Action and Month headers when matches exist', async () => {
+  it('renders wa-cards when matches exist', async () => {
     const { container } = await render(MonthScheduleTable, {
       regionId: 1,
       month: 3,
       schedules: mockSchedules
     })
 
-    const table = container.querySelector('table.c-table')
-    expect(table).not.toBeNull()
-
-    const headers = Array.from(container.querySelectorAll('th')).map((th) => th.textContent?.trim())
-    expect(headers).toEqual(['Cultura', 'Ação', 'Meses'])
+    const cards = container.querySelectorAll('wa-card')
+    expect(cards.length).toBe(2)
   })
 
   it('displays matching cultures and actions with badges and month lists', async () => {
@@ -132,28 +129,26 @@ describe('MonthScheduleTable.svelte', () => {
       schedules: mockSchedules
     })
 
-    const rows = Array.from(container.querySelectorAll('tbody tr'))
-    // sched-1 (Alface / sementeira), sched-2 (Alface / colher), sched-3 (Batata / plantar)
-    expect(rows.length).toBe(3)
+    const cards = Array.from(container.querySelectorAll('wa-card'))
+    // sched-1 (Alface / sementeira) and sched-2 (Alface / colher) in one card, sched-3 (Batata / plantar) in second card
+    expect(cards.length).toBe(2)
 
-    // First row: Alface, Sementeira direta, Mar, Abr, Mai
-    expect(rows[0]?.textContent).toContain('Alface')
-    expect(rows[0]?.textContent).toContain('(Quatro Estações)')
-    expect(rows[0]?.textContent).toContain('Sementeira direta')
-    expect(rows[0]?.textContent).toContain('Mar')
-    expect(rows[0]?.textContent).toContain('Abr')
-    expect(rows[0]?.textContent).toContain('Mai')
+    // First card: Alface, Sementeira direta, Colheita, Mar, Abr, Mai, Jun
+    expect(cards[0]?.textContent).toContain('Alface')
+    expect(cards[0]?.textContent).toContain('(Quatro Estações)')
+    expect(cards[0]?.textContent).toContain('Sementeira direta')
+    expect(cards[0]?.textContent).toContain('Colheita')
+    expect(cards[0]?.textContent).toContain('Mar')
+    expect(cards[0]?.textContent).toContain('Abr')
+    expect(cards[0]?.textContent).toContain('Mai')
+    expect(cards[0]?.textContent).toContain('Jun')
 
-    // Second row: Alface, Colheita, Mar, Abr, Mai, Jun
-    expect(rows[1]?.textContent).toContain('Alface')
-    expect(rows[1]?.textContent).toContain('Colheita')
-
-    // Third row: Batata, Plantação / Transplante, Fev, Mar, Abr
-    expect(rows[2]?.textContent).toContain('Batata')
-    expect(rows[2]?.textContent).toContain('Plantação / Transplante')
-    expect(rows[2]?.textContent).toContain('Fev')
-    expect(rows[2]?.textContent).toContain('Mar')
-    expect(rows[2]?.textContent).toContain('Abr')
+    // Second card: Batata, Plantação / Transplante, Fev, Mar, Abr
+    expect(cards[1]?.textContent).toContain('Batata')
+    expect(cards[1]?.textContent).toContain('Plantação / Transplante')
+    expect(cards[1]?.textContent).toContain('Fev')
+    expect(cards[1]?.textContent).toContain('Mar')
+    expect(cards[1]?.textContent).toContain('Abr')
   })
 
   it('sorts alphabetically by culture name and by action sequence', async () => {
@@ -163,12 +158,15 @@ describe('MonthScheduleTable.svelte', () => {
       schedules: mockSchedules
     })
 
-    const rows = Array.from(container.querySelectorAll('tbody tr'))
-    const cultureNames = rows.map((r) => r.querySelector('strong')?.textContent?.trim())
-    expect(cultureNames).toEqual(['Alface', 'Alface', 'Batata'])
+    const cards = Array.from(container.querySelectorAll('wa-card'))
+    const cultureNames = cards.map((c) => c.querySelector('strong')?.textContent?.trim())
+    expect(cultureNames).toEqual(['Alface', 'Batata'])
 
-    const badges = rows.map((r) => r.querySelector('wa-badge')?.textContent?.trim())
-    expect(badges).toEqual(['Sementeira direta', 'Colheita', 'Plantação / Transplante'])
+    const alfaceBadges = Array.from(cards[0]?.querySelectorAll('wa-badge') ?? []).map((b) => b.textContent?.trim())
+    expect(alfaceBadges).toEqual(['Sementeira direta', 'Colheita'])
+
+    const batataBadges = Array.from(cards[1]?.querySelectorAll('wa-badge') ?? []).map((b) => b.textContent?.trim())
+    expect(batataBadges).toEqual(['Plantação / Transplante'])
   })
 
   it('highlights the selected month with strong tag', async () => {
@@ -178,9 +176,10 @@ describe('MonthScheduleTable.svelte', () => {
       schedules: mockSchedules
     })
 
-    const rows = Array.from(container.querySelectorAll('tbody tr'))
-    const monthCells = rows.map((r) => r.querySelectorAll('td')[2])
-    const strongMonth = monthCells[0]?.querySelector('strong')?.textContent?.trim()
-    expect(strongMonth).toBe('Mar')
+    const cards = Array.from(container.querySelectorAll('wa-card'))
+    const strongTags = cards[0]?.querySelectorAll('strong')
+    // First strong is culture name, second strong is the highlighted month
+    expect(strongTags?.[0]?.textContent?.trim()).toBe('Alface')
+    expect(strongTags?.[1]?.textContent?.trim()).toBe('Mar')
   })
 })

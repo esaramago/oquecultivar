@@ -64,16 +64,52 @@
     colher: 4
   }
 
-  const sortedSchedules = $derived.by(() => {
-    return [...matchingSchedules].sort((a, b) => {
-      const cultA = getCulture(a)?.name ?? ''
-      const cultB = getCulture(b)?.name ?? ''
-      const nameDiff = cultA.localeCompare(cultB, 'pt-PT')
+  interface CultureGroup {
+    id: string
+    culture?: CultureRecord
+    schedules: CultureScheduleRecord[]
+  }
+
+  const groupedCultures = $derived.by((): CultureGroup[] => {
+    const groupsMap = new Map<string, CultureGroup>()
+
+    for (const schedule of matchingSchedules) {
+      const culture = getCulture(schedule)
+      const key = culture?.id ?? schedule.culture ?? schedule.id
+
+      let group = groupsMap.get(key)
+      if (!group) {
+        group = {
+          id: key,
+          culture,
+          schedules: []
+        }
+        groupsMap.set(key, group)
+      }
+      group.schedules.push(schedule)
+    }
+
+    const groups = Array.from(groupsMap.values())
+
+    // Sort schedules inside each culture group by cultivation action sequence
+    for (const group of groups) {
+      group.schedules.sort((a, b) => {
+        const orderA = ACTION_ORDER[a.action] ?? 99
+        const orderB = ACTION_ORDER[b.action] ?? 99
+        return orderA - orderB
+      })
+    }
+
+    // Sort culture groups alphabetically by name and variant
+    return groups.sort((a, b) => {
+      const nameA = a.culture?.name ?? ''
+      const nameB = b.culture?.name ?? ''
+      const nameDiff = nameA.localeCompare(nameB, 'pt-PT')
       if (nameDiff !== 0) return nameDiff
 
-      const orderA = ACTION_ORDER[a.action] ?? 99
-      const orderB = ACTION_ORDER[b.action] ?? 99
-      return orderA - orderB
+      const varA = a.culture?.variant ?? ''
+      const varB = b.culture?.variant ?? ''
+      return varA.localeCompare(varB, 'pt-PT')
     })
   })
 
@@ -115,52 +151,48 @@
     <wa-icon slot="icon" name="circle-exclamation"></wa-icon>
     {loadError}
   </wa-callout>
-{:else if sortedSchedules.length === 0}
+{:else if groupedCultures.length === 0}
   <wa-callout variant="neutral">
     <wa-icon slot="icon" name="circle-info"></wa-icon>
     Não foram encontradas ações de cultivo para este mês na região selecionada.
   </wa-callout>
 {:else}
-  <wa-scroller>
-    <table class="c-table">
-      <thead>
-        <tr>
-          <th>Cultura</th>
-          <th>Ação</th>
-          <th>Meses</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#each sortedSchedules as schedule (schedule.id)}
-          {@const culture = getCulture(schedule)}
-          {@const action = getActionById(schedule.action)}
-          {@const formattedMonths = getFormattedMonths(schedule.months)}
-          <tr>
-            <td>
-              <Grid align="center" gap="xs">
-                <strong>{culture?.name ?? '—'}</strong>
-                {#if culture?.variant}
-                  <span>({culture.variant})</span>
-                {/if}
-              </Grid>
-            </td>
-            <td>
+  <Grid direction="column">
+    {#each groupedCultures as group (group.id)}
+      <wa-card>
+        <Grid direction="column" gap="s">
+          <Grid align="center" gap="xs">
+            <strong>{group.culture?.name ?? '—'}</strong>
+            {#if group.culture?.variant}
+              <span>({group.culture.variant})</span>
+            {/if}
+          </Grid>
+          {#each group.schedules as schedule, index (schedule.id)}
+            {@const action = getActionById(schedule.action)}
+            {@const formattedMonths = getFormattedMonths(schedule.months)}
+            {#if index > 0}
+              <wa-divider></wa-divider>
+            {/if}
+            <Grid justify="space-between" align="center" wrap={true} gap="s">
               <wa-badge variant={action?.badgeVariant ?? 'neutral'}>
                 {action?.name ?? schedule.action}
               </wa-badge>
-            </td>
-            <td>
-              {#each formattedMonths as m, i}
-                {#if m.id === month}
-                  <strong>{m.shortName}</strong>{i < formattedMonths.length - 1 ? ', ' : ''}
-                {:else}
-                  <span>{m.shortName}</span>{i < formattedMonths.length - 1 ? ', ' : ''}
-                {/if}
-              {/each}
-            </td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-  </wa-scroller>
+              <Grid align="center" gap="xs">
+                <wa-icon name="calendar"></wa-icon>
+                <div>
+                  {#each formattedMonths as m, i}
+                    {#if m.id === month}
+                      <strong>{m.shortName}</strong>{i < formattedMonths.length - 1 ? ', ' : ''}
+                    {:else}
+                      <span>{m.shortName}</span>{i < formattedMonths.length - 1 ? ', ' : ''}
+                    {/if}
+                  {/each}
+                </div>
+              </Grid>
+            </Grid>
+          {/each}
+        </Grid>
+      </wa-card>
+    {/each}
+  </Grid>
 {/if}
