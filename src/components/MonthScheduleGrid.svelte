@@ -1,13 +1,14 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import Grid from '@/components/Grid.svelte'
-  import { ACTIONS, MONTHS, getActionById, getCultureTypeById } from '@/lib/config'
+  import { ACTIONS, MONTHS, getActionById, getCultureTypeById, getMonthById } from '@/lib/config'
   import { pb } from '@/lib/pocketbase'
   import type {
     ActionId,
     CultivationAction,
     CultureRecord,
     CultureScheduleRecord,
+    MonthInfo,
     MonthNumber,
     RegionId
   } from '@/types/cultivo'
@@ -15,11 +16,15 @@
   let {
     regionId = null,
     month = (new Date().getMonth() + 1) as MonthNumber,
+    showFullYear = $bindable(false),
+    selectedActions = $bindable<ActionId[]>(ACTIONS.map((a) => a.id)),
     schedules = $bindable<CultureScheduleRecord[]>([]),
     cultures = []
   }: {
     regionId?: RegionId | null
-    month?: MonthNumber
+    month?: MonthNumber | null
+    showFullYear?: boolean
+    selectedActions?: ActionId[]
     schedules?: CultureScheduleRecord[]
     cultures?: CultureRecord[]
   } = $props()
@@ -27,12 +32,51 @@
   let isLoading = $state(false)
   let loadError = $state<string | null>(null)
 
+  const selectedActionSet = $derived(new Set(selectedActions))
+
+  function toggleAction(actionId: ActionId) {
+    if (selectedActions.includes(actionId)) {
+      selectedActions = selectedActions.filter((id) => id !== actionId)
+    } else {
+      selectedActions = [...selectedActions, actionId]
+    }
+  }
+
+  function handleActionKeydown(event: KeyboardEvent, actionId: ActionId) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      toggleAction(actionId)
+    }
+  }
+
   const ACTION_ORDER: Record<string, number> = {
     sementeira_direta: 1,
     viveiro: 2,
     plantar: 3,
     colher: 4
   }
+
+  function handleSwitchChange(event: Event) {
+    const target = event.target as HTMLElement & { checked: boolean }
+    showFullYear = target.checked
+  }
+
+  const displayedMonths = $derived.by((): readonly MonthInfo[] => {
+    if (!month || showFullYear) {
+      return MONTHS
+    }
+
+    const prevMonthId = (month === 1 ? 12 : month - 1) as MonthNumber
+    const nextMonthId = (month === 12 ? 1 : month + 1) as MonthNumber
+
+    const prevMonth = getMonthById(prevMonthId)
+    const currentMonth = getMonthById(month)
+    const nextMonth = getMonthById(nextMonthId)
+
+    return [prevMonth, currentMonth, nextMonth].filter(
+      (m): m is MonthInfo => Boolean(m)
+    )
+  })
 
   function getCulture(schedule: CultureScheduleRecord): CultureRecord | undefined {
     if (schedule.expand?.culture) {
@@ -51,23 +95,33 @@
   }
 
   const cultureRows = $derived.by((): CultureGridRow[] => {
-    if (!regionId || !month) {
+    if (!regionId) {
       return []
     }
 
     const regStr = String(regionId)
-    const selectedMonthStr = String(month)
 
     // Filter schedules for the selected region
     const regionSchedules = schedules.filter((s) => s.regions?.includes(regStr))
 
-    // Find culture IDs that have at least one action in the selected month
+    // Find culture IDs that have at least one active action in the selected month
     const activeCultureKeys = new Set<string>()
-    for (const s of regionSchedules) {
-      if (s.months?.includes(selectedMonthStr)) {
-        const culture = getCulture(s)
-        const key = culture?.id ?? s.culture ?? s.id
-        activeCultureKeys.add(key)
+    if (month) {
+      const selectedMonthStr = String(month)
+      for (const s of regionSchedules) {
+        if (selectedActionSet.has(s.action) && s.months?.includes(selectedMonthStr)) {
+          const culture = getCulture(s)
+          const key = culture?.id ?? s.culture ?? s.id
+          activeCultureKeys.add(key)
+        }
+      }
+    } else {
+      for (const s of regionSchedules) {
+        if (selectedActionSet.has(s.action)) {
+          const culture = getCulture(s)
+          const key = culture?.id ?? s.culture ?? s.id
+          activeCultureKeys.add(key)
+        }
       }
     }
 
@@ -82,6 +136,10 @@
     >()
 
     for (const s of regionSchedules) {
+      if (!selectedActionSet.has(s.action)) {
+        continue
+      }
+
       const culture = getCulture(s)
       const key = culture?.id ?? s.culture ?? s.id
 
@@ -182,32 +240,61 @@
     <wa-icon slot="icon" name="circle-exclamation"></wa-icon>
     {loadError}
   </wa-callout>
-{:else if cultureRows.length === 0}
-  <wa-callout variant="neutral">
-    <wa-icon slot="icon" name="circle-info"></wa-icon>
-    Não foram encontradas ações de cultivo para este mês na região selecionada.
-  </wa-callout>
 {:else}
   <Grid direction="column" gap="l">
-    <!-- Action Legend -->
-    <Grid align="center" gap="s" wrap={true}>
-      {#each ACTIONS as action (action.id)}
-        <Grid align="center" gap="xs">
-          <wa-badge variant={action.badgeVariant}>
-            {action.shortName}
-          </wa-badge>
-          <span>{action.name}</span>
-        </Grid>
-      {/each}
+    <!-- Action Filters and Full Year toggle -->
+    <Grid justify="space-between" align="center" wrap={true}>
+      <Grid align="center" gap="s" wrap={true}>
+        {#each ACTIONS as action (action.id)}
+          {@const isActive = selectedActionSet.has(action.id)}
+          <wa-button
+            role="button"
+            tabindex="0"
+            size="s"
+            pill
+            variant={isActive ? action.badgeVariant : 'neutral'}
+            appearance={isActive ? 'filled' : 'outlined'}
+            onclick={() => toggleAction(action.id)}
+            onkeydown={(e: KeyboardEvent) => handleActionKeydown(e, action.id)}
+          >
+            {#if isActive}
+              <wa-icon slot="start" name="check"></wa-icon>
+            {/if}
+            {action.name}
+          </wa-button>
+        {/each}
+      </Grid>
+
+      {#if month}
+        <wa-switch
+          checked={showFullYear}
+          onchange={handleSwitchChange}
+          onwa-change={handleSwitchChange}
+        >
+          Mostrar ano inteiro
+        </wa-switch>
+      {/if}
     </Grid>
 
-    <!-- Calendar Grid Table -->
-    <wa-scroller>
+    {#if cultureRows.length === 0}
+      <wa-callout variant="neutral">
+        <wa-icon slot="icon" name="circle-info"></wa-icon>
+        {#if selectedActions.length === 0}
+          Nenhuma ação selecionada. Selecione pelo menos uma ação acima para consultar as culturas.
+        {:else if month}
+          Não foram encontradas ações de cultivo para este mês na região selecionada.
+        {:else}
+          Não foram encontradas ações de cultivo para a região selecionada.
+        {/if}
+      </wa-callout>
+    {:else}
+      <!-- Calendar Grid Table -->
+      <wa-scroller>
       <table class="c-table">
         <thead>
           <tr>
             <th>Cultura</th>
-            {#each MONTHS as m (m.id)}
+            {#each displayedMonths as m (m.id)}
               <th class:--current={m.id === month}>
                 {#if m.id === month}
                   <strong>{m.shortName}</strong>
@@ -233,7 +320,7 @@
                 </div>
                 <div>{row.culture?.type ? (getCultureTypeById(row.culture.type)?.name ?? row.culture.type) : ''}</div>
               </td>
-              {#each MONTHS as m (m.id)}
+              {#each displayedMonths as m (m.id)}
                 {@const actions = row.actionsByMonth.get(m.id) ?? []}
                 <td class:--current={m.id === month}>
                   {#if actions.length > 0}
@@ -255,6 +342,7 @@
         </tbody>
       </table>
     </wa-scroller>
+    {/if}
   </Grid>
 {/if}
 

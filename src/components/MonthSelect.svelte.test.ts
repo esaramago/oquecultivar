@@ -57,4 +57,45 @@ describe('MonthSelect.svelte', () => {
       month: { id: 7, name: 'Julho', shortName: 'Jul' }
     })
   })
+
+  it('allows clearing the month and emits undefined month', async () => {
+    const onchange = vi.fn()
+    const { container } = await render(MonthSelect, {
+      selectedMonth: 5,
+      onchange
+    })
+
+    const selectEl = container.querySelector('wa-select')
+    expect(selectEl).not.toBeNull()
+    expect(selectEl?.hasAttribute('with-clear')).toBe(true)
+
+    if (selectEl) {
+      selectEl.dispatchEvent(new CustomEvent('wa-clear', { bubbles: true }))
+    }
+
+    expect(onchange).toHaveBeenCalledWith({
+      month: undefined
+    })
+  })
+
+  it('handles clearing via empty select value', async () => {
+    const onchange = vi.fn()
+    const { container } = await render(MonthSelect, {
+      selectedMonth: 5,
+      onchange
+    })
+
+    const selectEl = container.querySelector('wa-select')
+    if (selectEl) {
+      Object.defineProperty(selectEl, 'value', {
+        value: '',
+        writable: true
+      })
+      selectEl.dispatchEvent(new Event('change', { bubbles: true }))
+    }
+
+    expect(onchange).toHaveBeenCalledWith({
+      month: undefined
+    })
+  })
 })

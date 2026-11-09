@@ -8,18 +8,19 @@
   }
 
   let {
-    selectedMonth = $bindable<MonthNumber>(getCurrentMonth()),
+    selectedMonth = $bindable<MonthNumber | null>(getCurrentMonth()),
     onchange
   }: {
-    selectedMonth?: MonthNumber
+    selectedMonth?: MonthNumber | null
     onchange?: (detail: { month: MonthInfo | undefined }) => void
   } = $props()
 
   let selectEl = $state<WaSelect | null>(null)
 
   $effect(() => {
-    if (selectEl && selectEl.value !== String(selectedMonth)) {
-      selectEl.value = String(selectedMonth)
+    const val = selectedMonth ? String(selectedMonth) : ''
+    if (selectEl && selectEl.value !== val) {
+      selectEl.value = val
     }
   })
 
@@ -29,16 +30,31 @@
     if (monthNumber >= 1 && monthNumber <= 12) {
       selectedMonth = monthNumber
       onchange?.({ month: getMonthById(monthNumber) })
+    } else {
+      selectedMonth = null
+      onchange?.({ month: undefined })
     }
+  }
+
+  function handleClear() {
+    selectedMonth = null
+    if (selectEl) {
+      selectEl.value = ''
+    }
+    onchange?.({ month: undefined })
   }
 </script>
 
 <wa-select
   bind:this={selectEl}
   label="Mês"
-  value={String(selectedMonth)}
+  value={selectedMonth ? String(selectedMonth) : ''}
+  placeholder="Todos os meses"
+  with-clear
+  clearable
   onchange={handleSelectChange}
   onwa-change={handleSelectChange}
+  onwa-clear={handleClear}
 >
   <wa-icon slot="start" name="calendar"></wa-icon>
 

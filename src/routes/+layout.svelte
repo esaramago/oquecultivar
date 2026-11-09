@@ -17,6 +17,7 @@
   import '@awesome.me/webawesome/dist/components/popup/popup.js'
   import '@awesome.me/webawesome/dist/components/dropdown-item/dropdown-item.js'
   import '@awesome.me/webawesome/dist/components/scroller/scroller.js'
+  import '@awesome.me/webawesome/dist/components/switch/switch.js'
   import Header from '@/components/Header.svelte'
   import Footer from '@/components/Footer.svelte'
   import Grid from '@/components/Grid.svelte'
