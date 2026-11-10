@@ -105,7 +105,7 @@ export const ACTIONS: readonly CultivationAction[] = [
 		name: 'Sementeira direta',
 		shortName: 'Semear (Direta)',
 		description: 'Semear as sementes diretamente no solo definitivo.',
-		badgeVariant: 'brand'
+		badgeVariant: 'warning'
 	},
 	{
 		id: 'viveiro',
@@ -129,7 +129,7 @@ export const ACTIONS: readonly CultivationAction[] = [
 		name: 'Colheita',
 		shortName: 'Colher',
 		description: 'Colher os produtos prontos para consumo.',
-		badgeVariant: 'neutral'
+		badgeVariant: 'brand'
 	}
 ] as const
 
