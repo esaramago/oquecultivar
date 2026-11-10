@@ -7,7 +7,7 @@ const mockSchedules: CultureScheduleRecord[] = [
   {
     id: 'sched-1',
     culture: 'cult-1',
-    action: 'sementeira_direta',
+    action: 'direct_sowing',
     regions: ['1', '3', '4'],
     months: ['3', '4', '5'],
     created: '2026-01-01',
@@ -27,7 +27,7 @@ const mockSchedules: CultureScheduleRecord[] = [
   {
     id: 'sched-2',
     culture: 'cult-1',
-    action: 'colher',
+    action: 'harvest',
     regions: ['1', '3', '4'],
     months: ['3', '4', '5', '6'],
     created: '2026-01-01',
@@ -47,7 +47,7 @@ const mockSchedules: CultureScheduleRecord[] = [
   {
     id: 'sched-3',
     culture: 'cult-2',
-    action: 'plantar',
+    action: 'plant',
     regions: ['1', '2'],
     months: ['2', '3', '4'],
     created: '2026-01-01',
@@ -66,7 +66,7 @@ const mockSchedules: CultureScheduleRecord[] = [
   {
     id: 'sched-4',
     culture: 'cult-3',
-    action: 'viveiro',
+    action: 'nursery',
     regions: ['5'],
     months: ['1', '2'],
     created: '2026-01-01',

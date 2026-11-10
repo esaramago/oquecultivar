@@ -7,7 +7,7 @@ const mockSchedules: CultureScheduleRecord[] = [
   {
     id: 'sched-1',
     culture: 'cult-1',
-    action: 'sementeira_direta',
+    action: 'direct_sowing',
     regions: ['1', '3', '4'],
     months: ['3', '4', '5'],
     created: '2026-01-01',
@@ -27,7 +27,7 @@ const mockSchedules: CultureScheduleRecord[] = [
   {
     id: 'sched-2',
     culture: 'cult-1',
-    action: 'colher',
+    action: 'harvest',
     regions: ['1', '3', '4'],
     months: ['5', '6', '7'],
     created: '2026-01-01',
@@ -47,7 +47,7 @@ const mockSchedules: CultureScheduleRecord[] = [
   {
     id: 'sched-3',
     culture: 'cult-2',
-    action: 'plantar',
+    action: 'plant',
     regions: ['1', '2'],
     months: ['2', '3', '4'],
     created: '2026-01-01',
@@ -66,7 +66,7 @@ const mockSchedules: CultureScheduleRecord[] = [
   {
     id: 'sched-4',
     culture: 'cult-3',
-    action: 'viveiro',
+    action: 'nursery',
     regions: ['1'],
     months: ['1', '2'],
     created: '2026-01-01',
@@ -325,7 +325,7 @@ describe('MonthScheduleGrid.svelte', () => {
     const { container } = await render(MonthScheduleGrid, {
       regionId: 1,
       month: 3,
-      selectedActions: ['plantar'],
+      selectedActions: ['plant'],
       schedules: mockSchedules
     })
 
@@ -340,11 +340,11 @@ describe('MonthScheduleGrid.svelte', () => {
   })
 
   it('filters badges inside cells so only selected action badges appear', async () => {
-    // In Month 5: Alface has both sementeira_direta and colher
+    // In Month 5: Alface has both direct_sowing and harvest
     const { container } = await render(MonthScheduleGrid, {
       regionId: 1,
       month: 5,
-      selectedActions: ['colher'],
+      selectedActions: ['harvest'],
       showFullYear: true,
       schedules: mockSchedules
     })

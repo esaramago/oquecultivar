@@ -64,10 +64,10 @@ migrate((app) => {
         type: "select",
         required: true,
         values: [
-          "sementeira_direta",
-          "viveiro",
-          "plantar",
-          "colher"
+          "direct_sowing",
+          "nursery",
+          "plant",
+          "harvest"
         ],
       },
       {

@@ -50,10 +50,10 @@
   }
 
   const ACTION_ORDER: Record<string, number> = {
-    sementeira_direta: 1,
-    viveiro: 2,
-    plantar: 3,
-    colher: 4
+    direct_sowing: 1,
+    nursery: 2,
+    plant: 3,
+    harvest: 4
   }
 
   function handleSwitchChange(event: Event) {

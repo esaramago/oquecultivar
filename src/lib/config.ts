@@ -100,7 +100,7 @@ export const MONTHS: readonly MonthInfo[] = [
 
 export const ACTIONS: readonly CultivationAction[] = [
 	{
-		id: 'sementeira_direta',
+		id: 'direct_sowing',
 		category: 'semear',
 		name: 'Sementeira direta',
 		shortName: 'Semear (Direta)',
@@ -108,7 +108,7 @@ export const ACTIONS: readonly CultivationAction[] = [
 		badgeVariant: 'warning'
 	},
 	{
-		id: 'viveiro',
+		id: 'nursery',
 		category: 'semear',
 		name: 'Sementeira em viveiro',
 		shortName: 'Semear (Viveiro)',
@@ -116,7 +116,7 @@ export const ACTIONS: readonly CultivationAction[] = [
 		badgeVariant: 'warning'
 	},
 	{
-		id: 'plantar',
+		id: 'plant',
 		category: 'plantar',
 		name: 'Plantação / Transplante',
 		shortName: 'Plantar',
@@ -124,7 +124,7 @@ export const ACTIONS: readonly CultivationAction[] = [
 		badgeVariant: 'success'
 	},
 	{
-		id: 'colher',
+		id: 'harvest',
 		category: 'colher',
 		name: 'Colheita',
 		shortName: 'Colher',
@@ -170,7 +170,7 @@ export function getActionsByCategory(category: ActionCategory): CultivationActio
 }
 
 export function isSementeiraAction(actionId: ActionId): boolean {
-	return actionId === 'sementeira_direta' || actionId === 'viveiro'
+	return actionId === 'direct_sowing' || actionId === 'nursery'
 }
 
 export function getCultureTypeById(id: string): CultureTypeInfo | undefined {

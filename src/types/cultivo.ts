@@ -21,7 +21,7 @@ export interface MonthInfo {
 	shortName: string
 }
 
-export type ActionId = 'sementeira_direta' | 'viveiro' | 'plantar' | 'colher'
+export type ActionId = 'direct_sowing' | 'nursery' | 'plant' | 'harvest'
 export type ActionCategory = 'semear' | 'plantar' | 'colher'
 
 export interface CultivationAction {
