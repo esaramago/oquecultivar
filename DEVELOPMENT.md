@@ -32,8 +32,8 @@ cp .env.example .env
 
 | Variable | Default (Local) | Production (Coolify) | Description |
 | :--- | :--- | :--- | :--- |
-| `POCKETBASE_PORT` | `8090` | `8090` | Host port mapped to the PocketBase container |
-| `VITE_POCKETBASE_URL` | `http://localhost:8090` | `https://pb.yourdomain.com` | Public URL used by the client browser to contact PocketBase |
+| `POCKETBASE_PORT` | `8092` | `8092` | Host port mapped to the PocketBase container |
+| `VITE_POCKETBASE_URL` | `http://localhost:8092` | `https://pb.yourdomain.com` | Public URL used by the client browser to contact PocketBase |
 
 ### 3. Start the Development Environment
 
@@ -48,8 +48,8 @@ pnpm dev
 Once started, the following services are available:
 
 - **Frontend App:** [http://localhost:5173](http://localhost:5173)
-- **PocketBase Admin UI:** [http://localhost:8090/_/](http://localhost:8090/_/)
-- **PocketBase API Endpoint:** [http://localhost:8090/api/](http://localhost:8090/api/)
+- **PocketBase Admin UI:** [http://localhost:8092/_/](http://localhost:8092/_/)
+- **PocketBase API Endpoint:** [http://localhost:8092/api/](http://localhost:8092/api/)
 
 When accessing the PocketBase Admin UI for the first time, you will be prompted to create your initial superuser administrator account.
 
@@ -139,7 +139,7 @@ docker compose down
 
 The production services will be available at:
 - Web App: `http://localhost:5173`
-- PocketBase: `http://localhost:8090`
+- PocketBase: `http://localhost:8092`
 
 ### Coolify Setup
 
@@ -154,7 +154,7 @@ When deploying to Coolify:
 
 ## 🔧 Troubleshooting & Tips
 
-- **PocketBase Port Conflict:** If port `8090` is already in use on your machine, change `POCKETBASE_PORT` and `VITE_POCKETBASE_URL` in `.env` (e.g. `POCKETBASE_PORT=8091` and `VITE_POCKETBASE_URL=http://localhost:8091`).
+- **PocketBase Port Conflict:** If port `8092` is already in use on your machine, change `POCKETBASE_PORT` and `VITE_POCKETBASE_URL` in `.env` (e.g. `POCKETBASE_PORT=8091` and `VITE_POCKETBASE_URL=http://localhost:8091`).
 - **Stopping Background PocketBase:** If you want to stop the local PocketBase service after development:
   ```bash
   docker compose stop pocketbase
