@@ -7,11 +7,11 @@
   import MonthScheduleGrid from '@/components/MonthScheduleGrid.svelte'
   import MonthSelect from '@/components/MonthSelect.svelte'
   import RegionSelect from '@/components/RegionSelect.svelte'
-  import { ACTIONS } from '@/lib/config'
+  import { ACTIONS, DEFAULT_REGION_ID } from '@/lib/config'
   import type { ActionId, CultureRecord, MonthNumber, RegionId } from '@/types/cultivo'
 
   let selectedDistrictId = $state('')
-  let selectedRegionId = $state<RegionId | null>(null)
+  let selectedRegionId = $state<RegionId | null>(DEFAULT_REGION_ID)
   let selectedMonth = $state<MonthNumber | null>((new Date().getMonth() + 1) as MonthNumber)
   let selectedCultureId = $state('')
   let selectedCulture = $state<CultureRecord | null>(null)

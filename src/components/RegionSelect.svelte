@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import Grid from '@/components/Grid.svelte'
   import {
+    DEFAULT_REGION_ID,
     SORTED_DISTRICTS,
     getDistrictById,
     getRegionById
@@ -13,7 +14,7 @@
 
   let {
     selectedDistrictId = $bindable(''),
-    selectedRegionId = $bindable<RegionId | null>(null),
+    selectedRegionId = $bindable<RegionId | null>(DEFAULT_REGION_ID),
     onchange
   }: {
     selectedDistrictId?: string
@@ -34,14 +35,36 @@
     selectedDistrictId ? getDistrictById(selectedDistrictId) : undefined
   )
   const selectedRegion = $derived(
-    selectedDistrict ? getRegionById(selectedDistrict.regionId) : undefined
+    selectedDistrict
+      ? getRegionById(selectedDistrict.regionId)
+      : getRegionById(DEFAULT_REGION_ID)
   )
+
+  $effect(() => {
+    if (selectedDistrictId) {
+      const district = getDistrictById(selectedDistrictId)
+      const targetRegionId = district ? district.regionId : DEFAULT_REGION_ID
+      if (selectedRegionId !== targetRegionId) {
+        selectedRegionId = targetRegionId
+      }
+    } else {
+      if (selectedRegionId !== DEFAULT_REGION_ID) {
+        selectedRegionId = DEFAULT_REGION_ID
+      }
+    }
+
+    if (selectEl && selectEl.value !== selectedDistrictId) {
+      selectEl.value = selectedDistrictId
+    }
+  })
 
   function updateSelection(districtId: string) {
     selectedDistrictId = districtId
     const district = getDistrictById(districtId)
-    const region = district ? getRegionById(district.regionId) : undefined
-    selectedRegionId = region ? region.id : null
+    const region = district
+      ? getRegionById(district.regionId)
+      : getRegionById(DEFAULT_REGION_ID)
+    selectedRegionId = region ? region.id : DEFAULT_REGION_ID
 
     if (typeof window !== 'undefined') {
       if (districtId) {
@@ -161,7 +184,7 @@
     {#if selectedDistrict && selectedRegion}
       {selectedDistrict.name} · Região {selectedRegion.id}
     {:else}
-      Selecionar distrito
+      Todas as zonas
     {/if}
   </wa-button>
 
@@ -178,14 +201,16 @@
           <wa-select
             bind:this={selectEl}
             label="Distrito da horta"
-            placeholder="Selecione o seu distrito..."
+            placeholder="Todas as zonas"
             value={selectedDistrictId}
             clearable
             onchange={handleSelectChange}
+            onwa-change={handleSelectChange}
             onwa-clear={handleClear}
           >
             <wa-icon slot="start" name="location-dot"></wa-icon>
 
+            <wa-option value="">Todas as zonas</wa-option>
             {#each SORTED_DISTRICTS as district}
               <wa-option value={district.id}>
                 {district.name}

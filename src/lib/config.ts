@@ -5,12 +5,15 @@ import type {
 	ActionId,
 	CultivationAction,
 	CultureTypeInfo,
-	ActionCategory
+	ActionCategory,
+	RegionId
 } from '@/types/cultivo'
 
 export const WEBSITE_TITLE = 'O Que Cultivar'
 export const UMAMI_URL = 'https://analytics.emanuelsaramago.com'
 export const UMAMI_WEBSITE_ID = ''
+
+export const DEFAULT_REGION_ID: RegionId = 3
 
 export const REGIONS: readonly Region[] = [
 	{
