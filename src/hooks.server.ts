@@ -1,5 +1,5 @@
 import PocketBase from 'pocketbase'
-import type { Handle } from '@sveltejs/kit'
+import type { Handle, HandleServerError } from '@sveltejs/kit'
 
 const POCKETBASE_URL = process.env.VITE_POCKETBASE_URL || 'http://127.0.0.1:8090'
 
@@ -34,4 +34,14 @@ export const handle: Handle = async ({ event, resolve }) => {
 	)
 
 	return response
+}
+
+export const handleError: HandleServerError = ({ error, status, message }) => {
+	// Suppress logging expected client/bot errors like 404 (Not Found) or 405 (Method Not Allowed)
+	if (status === 404 || status === 405) {
+		return { message }
+	}
+
+	console.error(error)
+	return { message }
 }

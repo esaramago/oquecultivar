@@ -29,7 +29,7 @@ vi.mock('pocketbase', () => {
   }
 })
 
-import { handle } from './hooks.server'
+import { handle, handleError } from './hooks.server'
 
 describe('hooks.server handle', () => {
   beforeEach(() => {
@@ -88,5 +88,48 @@ describe('hooks.server handle', () => {
 
     expect(mockAuthRefresh).toHaveBeenCalledOnce()
     expect(mockClear).toHaveBeenCalledOnce()
+  })
+})
+
+describe('hooks.server handleError', () => {
+  it('does not log 404 or 405 errors and returns message', async () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+    const res405 = await handleError({
+      error: new Error('POST method not allowed'),
+      event: {} as any,
+      status: 405,
+      message: 'Method Not Allowed'
+    })
+
+    const res404 = await handleError({
+      error: new Error('Not found'),
+      event: {} as any,
+      status: 404,
+      message: 'Not Found'
+    })
+
+    expect(consoleSpy).not.toHaveBeenCalled()
+    expect(res405).toEqual({ message: 'Method Not Allowed' })
+    expect(res404).toEqual({ message: 'Not Found' })
+
+    consoleSpy.mockRestore()
+  })
+
+  it('logs 500 errors to console and returns message', async () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+    const serverError = new Error('Database crash')
+
+    const res500 = await handleError({
+      error: serverError,
+      event: {} as any,
+      status: 500,
+      message: 'Internal Error'
+    })
+
+    expect(consoleSpy).toHaveBeenCalledWith(serverError)
+    expect(res500).toEqual({ message: 'Internal Error' })
+
+    consoleSpy.mockRestore()
   })
 })
