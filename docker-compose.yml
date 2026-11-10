@@ -16,7 +16,9 @@ services:
       - pocketbase
 
   pocketbase:
-    image: ghcr.io/muchobien/pocketbase:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.pocketbase
     restart: unless-stopped
     ports:
       - "${POCKETBASE_PORT:-8090}:8090"
