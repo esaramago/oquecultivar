@@ -9,6 +9,7 @@
   import { findNearestDistrict } from '@/lib/geo'
   import type { RegionId, District, Region } from '@/types/cultivo'
   import type WaSelect from '@awesome.me/webawesome/dist/components/select/select.js'
+  import type WaDialog from '@awesome.me/webawesome/dist/components/dialog/dialog.js'
 
   let {
     selectedDistrictId = $bindable(''),
@@ -23,9 +24,11 @@
     }) => void
   } = $props()
 
+  let isDialogOpen = $state(false)
   let isLocating = $state(false)
   let locationError = $state<string | null>(null)
   let selectEl = $state<WaSelect | null>(null)
+  let dialogEl = $state<WaDialog | null>(null)
 
   const selectedDistrict = $derived(
     selectedDistrictId ? getDistrictById(selectedDistrictId) : undefined
@@ -120,6 +123,20 @@
     }
   }
 
+  function handleTriggerKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      isDialogOpen = true
+    }
+  }
+
+  function handleFooterKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      isDialogOpen = false
+    }
+  }
+
   onMount(() => {
     if (!selectedDistrictId && typeof window !== 'undefined') {
       const savedDistrictId = localStorage.getItem('oquecultivar_district')
@@ -130,65 +147,110 @@
   })
 </script>
 
-<Grid direction="column" gap="l">
-  <Grid align="end" break="mobile">
-    <div data-grow="1">
-      <wa-select
-        bind:this={selectEl}
-        label="Distrito da horta"
-        placeholder="Selecione o seu distrito..."
-        value={selectedDistrictId}
-        clearable
-        onchange={handleSelectChange}
-        onwa-clear={handleClear}
-      >
-        <wa-icon slot="start" name="location-dot"></wa-icon>
+<Grid align="center">
+  <wa-button
+    role="button"
+    tabindex="0"
+    variant="neutral"
+    appearance="outlined"
+    onclick={() => (isDialogOpen = true)}
+    onkeydown={handleTriggerKeydown}
+    full
+  >
+    <wa-icon slot="start" name="location-dot"></wa-icon>
+    {#if selectedDistrict && selectedRegion}
+      {selectedDistrict.name} · Região {selectedRegion.id}
+    {:else}
+      Selecionar distrito
+    {/if}
+  </wa-button>
 
-        {#each SORTED_DISTRICTS as district}
-          <wa-option value={district.id}>
-            {district.name}
-          </wa-option>
-        {/each}
-      </wa-select>
-    </div>
+  <wa-dialog
+    bind:this={dialogEl}
+    label="Região da horta"
+    open={isDialogOpen || undefined}
+    light-dismiss
+    onwa-hide={() => (isDialogOpen = false)}
+  >
+    <Grid direction="column" gap="l">
+      <Grid align="end" break="mobile">
+        <div data-grow="1">
+          <wa-select
+            bind:this={selectEl}
+            label="Distrito da horta"
+            placeholder="Selecione o seu distrito..."
+            value={selectedDistrictId}
+            clearable
+            onchange={handleSelectChange}
+            onwa-clear={handleClear}
+          >
+            <wa-icon slot="start" name="location-dot"></wa-icon>
 
-    <div>
-      <wa-button
-        role="button"
-        tabindex="0"
-        variant="neutral"
-        onclick={handleGeolocate}
-        onkeydown={handleKeydown}
-        disabled={isLocating}
-      >
-        {#if isLocating}
-          <wa-spinner slot="start"></wa-spinner>
-          A detetar...
-        {:else}
-          <wa-icon slot="start" name="crosshairs" variant="solid"></wa-icon>
-          Usar localização atual
-        {/if}
-      </wa-button>
-    </div>
-  </Grid>
+            {#each SORTED_DISTRICTS as district}
+              <wa-option value={district.id}>
+                {district.name}
+              </wa-option>
+            {/each}
+          </wa-select>
+        </div>
 
-  {#if locationError}
-    <wa-callout variant="warning">
-      <wa-icon slot="icon" name="circle-exclamation"></wa-icon>
-      {locationError}
-    </wa-callout>
-  {/if}
-
-  {#if selectedRegion && selectedDistrict}
-    <wa-card>
-      <Grid justify="space-between" align="center" wrap={true}>
-        <Grid align="center" gap="s">
-          <wa-badge variant="brand">Região {selectedRegion.id}</wa-badge>
-          <strong>{selectedRegion.name}</strong>
-        </Grid>
-        <wa-badge variant="neutral">{selectedDistrict.name}</wa-badge>
+        <div>
+          <wa-button
+            role="button"
+            tabindex="0"
+            variant="neutral"
+            onclick={handleGeolocate}
+            onkeydown={handleKeydown}
+            disabled={isLocating}
+          >
+            {#if isLocating}
+              <wa-spinner slot="start"></wa-spinner>
+              A detetar...
+            {:else}
+              <wa-icon slot="start" name="crosshairs" variant="solid"></wa-icon>
+              Usar localização atual
+            {/if}
+          </wa-button>
+        </div>
       </Grid>
-      <p>{selectedRegion.description}</p>
-    </wa-card>
-  {/if}
+
+      {#if locationError}
+        <wa-callout variant="warning">
+          <wa-icon slot="icon" name="circle-exclamation"></wa-icon>
+          {locationError}
+        </wa-callout>
+      {/if}
+
+      {#if selectedRegion && selectedDistrict}
+        <wa-card>
+          <Grid justify="space-between" align="center" wrap={true}>
+            <Grid align="center" gap="s">
+              <wa-badge variant="brand">Região {selectedRegion.id}</wa-badge>
+              <strong>{selectedRegion.name}</strong>
+            </Grid>
+            <wa-badge variant="neutral">{selectedDistrict.name}</wa-badge>
+          </Grid>
+          <p>{selectedRegion.description}</p>
+        </wa-card>
+      {/if}
+    </Grid>
+
+    <wa-button
+      role="button"
+      tabindex="0"
+      slot="footer"
+      variant="brand"
+      onclick={() => (isDialogOpen = false)}
+      onkeydown={handleFooterKeydown}
+    >
+      Concluir
+    </wa-button>
+  </wa-dialog>
 </Grid>
+
+
+<style>
+  wa-dialog {
+    --width: 60rem;
+  }
+</style>

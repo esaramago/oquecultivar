@@ -4,3 +4,7 @@
   --wa-space-scale: 1.6;
   --wa-border-radius-scale: 3;
 }
+
+wa-button[full] {
+  width: 100%;
+}

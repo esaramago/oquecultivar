@@ -11,6 +11,6 @@
 
 <style>
   header {
-    padding: var(--wa-space-l) 0;
+    padding-block: var(--wa-space-l);
   }
 </style>

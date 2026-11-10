@@ -65,12 +65,12 @@
 
 <div class="l-container">
   <Grid direction="column" gap="xl">
-    <RegionSelect
-      bind:selectedDistrictId
-      bind:selectedRegionId
-    />
 
-    <Grid break="mobile" fullWidth>
+    <Grid break="mobile" fullWidth align="end">
+      <RegionSelect
+        bind:selectedDistrictId
+        bind:selectedRegionId
+      />
       <MonthSelect
         bind:selectedMonth
         onchange={handleMonthChange}

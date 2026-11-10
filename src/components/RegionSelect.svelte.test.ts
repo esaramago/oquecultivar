@@ -1,5 +1,5 @@
 import { page } from 'vitest/browser'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { render } from 'vitest-browser-svelte'
 import RegionSelect from './RegionSelect.svelte'
 
@@ -12,15 +12,23 @@ describe('RegionSelect.svelte', () => {
     localStorage.clear()
   })
 
-  it('renders select element and locate button', async () => {
+  it('renders trigger button and dialog with select and locate button', async () => {
     const { container } = await render(RegionSelect)
+
+    const triggerButton = container.querySelector('wa-button')
+    expect(triggerButton).not.toBeNull()
+    expect(triggerButton?.textContent).toContain('Selecionar distrito')
+
+    const dialogEl = container.querySelector('wa-dialog')
+    expect(dialogEl).not.toBeNull()
 
     const selectEl = container.querySelector('wa-select')
     expect(selectEl).not.toBeNull()
 
-    const buttonEl = container.querySelector('wa-button')
-    expect(buttonEl).not.toBeNull()
-    expect(buttonEl?.textContent).toContain('Usar localização atual')
+    const locateButton = Array.from(container.querySelectorAll('wa-button')).find((btn) =>
+      btn.textContent?.includes('Usar localização atual')
+    )
+    expect(locateButton).not.toBeUndefined()
   })
 
   it('renders district options in alphabetical order', async () => {
@@ -40,6 +48,9 @@ describe('RegionSelect.svelte', () => {
       selectedDistrictId: 'lisboa'
     })
 
+    const triggerButton = container.querySelector('wa-button')
+    expect(triggerButton?.textContent).toContain('Lisboa · Região 3')
+
     const card = container.querySelector('wa-card')
     expect(card).not.toBeNull()
     expect(card?.textContent).toContain('Região 3')
@@ -50,9 +61,25 @@ describe('RegionSelect.svelte', () => {
     localStorage.setItem('oquecultivar_district', 'porto')
     const { container } = await render(RegionSelect)
 
+    const triggerButton = container.querySelector('wa-button')
+    expect(triggerButton?.textContent).toContain('Porto · Região 1')
+
     const card = container.querySelector('wa-card')
     expect(card).not.toBeNull()
     expect(card?.textContent).toContain('Região 1')
     expect(card?.textContent).toContain('Litoral norte e centro')
+  })
+
+  it('opens dialog when trigger button is clicked', async () => {
+    const { container } = await render(RegionSelect)
+
+    const triggerButton = container.querySelector('wa-button')
+    const dialogEl = container.querySelector('wa-dialog') as HTMLElement
+    expect(dialogEl.hasAttribute('open')).toBe(false)
+
+    triggerButton?.click()
+    await vi.waitFor(() => {
+      expect(dialogEl.hasAttribute('open')).toBe(true)
+    })
   })
 })
