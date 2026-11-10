@@ -8,7 +8,7 @@ const mockCultures: CultureRecord[] = [
     id: 'culture-1',
     name: 'Alface',
     variant: 'Quatro Estações',
-    type: 'folha',
+    type: 'leaf',
     slug: 'alface-quatro-estacoes',
     created: '2026-01-01',
     updated: '2026-01-01'
@@ -17,7 +17,7 @@ const mockCultures: CultureRecord[] = [
     id: 'culture-2',
     name: 'Tomate',
     variant: 'Coração de Boi',
-    type: 'fruto',
+    type: 'fruit',
     slug: 'tomate-coracao-de-boi',
     created: '2026-01-01',
     updated: '2026-01-01'
@@ -26,7 +26,7 @@ const mockCultures: CultureRecord[] = [
     id: 'culture-3',
     name: 'Cenoura',
     variant: '',
-    type: 'raiz',
+    type: 'root',
     slug: 'cenoura',
     created: '2026-01-01',
     updated: '2026-01-01'
@@ -92,7 +92,7 @@ describe('CultureAutocomplete.svelte', () => {
         id: 'culture-4',
         name: 'Feijão Verde',
         variant: 'Rasteiro',
-        type: 'leguminosa',
+        type: 'legume',
         slug: 'feijao-verde-rasteiro',
         created: '2026-01-01',
         updated: '2026-01-01'

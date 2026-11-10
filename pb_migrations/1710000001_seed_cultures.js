@@ -19,7 +19,7 @@ migrate((app) => {
     {
       name: "Alface",
       variant: "Quatro Estações",
-      type: "folha",
+      type: "leaf",
       slug: "alface-quatro-estacoes",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["3", "4", "5", "6", "7", "8", "9", "10"] },
@@ -39,7 +39,7 @@ migrate((app) => {
     {
       name: "Alface",
       variant: "Rainha de Maio",
-      type: "folha",
+      type: "leaf",
       slug: "alface-rainha-de-maio",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["1", "2", "3", "4", "8", "9"] },
@@ -56,7 +56,7 @@ migrate((app) => {
     {
       name: "Alface",
       variant: "Romana",
-      type: "folha",
+      type: "leaf",
       slug: "alface-romana",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4", "5", "6", "7", "8", "9"] },
@@ -73,7 +73,7 @@ migrate((app) => {
     {
       name: "Espinafre",
       variant: "Gigante de Inverno",
-      type: "folha",
+      type: "leaf",
       slug: "espinafre",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["2", "3", "4", "5", "9", "10", "11"] },
@@ -87,7 +87,7 @@ migrate((app) => {
     {
       name: "Acelga",
       variant: "Penca Larga Branca",
-      type: "folha",
+      type: "leaf",
       slug: "acelga",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["2", "3", "4", "5", "8", "9", "10"] },
@@ -107,7 +107,7 @@ migrate((app) => {
     {
       name: "Rúcula",
       variant: "Cultivada",
-      type: "folha",
+      type: "leaf",
       slug: "rucula",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["2", "3", "4", "5", "8", "9", "10", "11"] },
@@ -121,7 +121,7 @@ migrate((app) => {
     {
       name: "Agrião",
       variant: "De Água",
-      type: "folha",
+      type: "leaf",
       slug: "agriao",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["2", "3", "4", "9", "10", "11"] },
@@ -135,7 +135,7 @@ migrate((app) => {
     {
       name: "Canónigos",
       variant: "Alface-de-cordeiro",
-      type: "folha",
+      type: "leaf",
       slug: "canonigos",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["8", "9", "10", "11"] },
@@ -149,7 +149,7 @@ migrate((app) => {
     {
       name: "Chicória",
       variant: "Escarola",
-      type: "folha",
+      type: "leaf",
       slug: "chicoria-escarola",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["6", "7", "8", "9"] },
@@ -166,7 +166,7 @@ migrate((app) => {
     {
       name: "Aipo",
       variant: "De Talo",
-      type: "folha",
+      type: "leaf",
       slug: "aipo",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4", "5"] },
@@ -187,7 +187,7 @@ migrate((app) => {
     {
       name: "Tomate",
       variant: "Coração de Boi",
-      type: "fruto",
+      type: "fruit",
       slug: "tomate-coracao-de-boi",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4"] },
@@ -204,7 +204,7 @@ migrate((app) => {
     {
       name: "Tomate",
       variant: "Cereja (Cherry)",
-      type: "fruto",
+      type: "fruit",
       slug: "tomate-cereja",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4", "5"] },
@@ -221,7 +221,7 @@ migrate((app) => {
     {
       name: "Tomate",
       variant: "Chucha (Roma)",
-      type: "fruto",
+      type: "fruit",
       slug: "tomate-chucha",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4"] },
@@ -238,7 +238,7 @@ migrate((app) => {
     {
       name: "Pimento",
       variant: "De Quatro Cantos",
-      type: "fruto",
+      type: "fruit",
       slug: "pimento",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4"] },
@@ -255,7 +255,7 @@ migrate((app) => {
     {
       name: "Pimento",
       variant: "Padrón",
-      type: "fruto",
+      type: "fruit",
       slug: "pimento-padron",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4"] },
@@ -272,7 +272,7 @@ migrate((app) => {
     {
       name: "Malagueta",
       variant: "Piri-piri",
-      type: "fruto",
+      type: "fruit",
       slug: "malagueta",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4"] },
@@ -289,7 +289,7 @@ migrate((app) => {
     {
       name: "Beringela",
       variant: "Comprida Roxa",
-      type: "fruto",
+      type: "fruit",
       slug: "beringela",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4"] },
@@ -306,7 +306,7 @@ migrate((app) => {
     {
       name: "Curgete",
       variant: "Verde Escura",
-      type: "fruto",
+      type: "fruit",
       slug: "curgete",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["4", "5", "6", "7"] },
@@ -326,7 +326,7 @@ migrate((app) => {
     {
       name: "Pepino",
       variant: "Marketmore",
-      type: "fruto",
+      type: "fruit",
       slug: "pepino",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["4", "5", "6"] },
@@ -346,7 +346,7 @@ migrate((app) => {
     {
       name: "Abóbora",
       variant: "Menina",
-      type: "fruto",
+      type: "fruit",
       slug: "abobora-menina",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["4", "5", "6"] },
@@ -366,7 +366,7 @@ migrate((app) => {
     {
       name: "Abóbora",
       variant: "Manteiga (Butternut)",
-      type: "fruto",
+      type: "fruit",
       slug: "abobora-manteiga",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["4", "5", "6"] },
@@ -386,7 +386,7 @@ migrate((app) => {
     {
       name: "Melancia",
       variant: "Crimson Sweet",
-      type: "fruto",
+      type: "fruit",
       slug: "melancia",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["4", "5"] },
@@ -406,7 +406,7 @@ migrate((app) => {
     {
       name: "Melão",
       variant: "Branco do Ribatejo",
-      type: "fruto",
+      type: "fruit",
       slug: "melao-branco",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["4", "5"] },
@@ -426,7 +426,7 @@ migrate((app) => {
     {
       name: "Morangueiro",
       variant: "Remontante",
-      type: "fruto",
+      type: "fruit",
       slug: "morangueiro",
       schedules: [
         { action: "plant", regions: ["1", "3", "4"], months: ["2", "3", "4", "9", "10", "11"] },
@@ -444,7 +444,7 @@ migrate((app) => {
     {
       name: "Cenoura",
       variant: "Nantesa",
-      type: "raiz",
+      type: "root",
       slug: "cenoura",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["2", "3", "4", "5", "6", "9", "10"] },
@@ -458,7 +458,7 @@ migrate((app) => {
     {
       name: "Rabanete",
       variant: "Redondo Vermelho",
-      type: "raiz",
+      type: "root",
       slug: "rabanete",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["2", "3", "4", "5", "6", "9", "10", "11"] },
@@ -472,7 +472,7 @@ migrate((app) => {
     {
       name: "Beterraba",
       variant: "De Mesa (Detroit)",
-      type: "raiz",
+      type: "root",
       slug: "beterraba",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["2", "3", "4", "5", "8", "9", "10"] },
@@ -492,7 +492,7 @@ migrate((app) => {
     {
       name: "Nabo",
       variant: "Bola de Neve / Grelo",
-      type: "raiz",
+      type: "root",
       slug: "nabo",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["2", "3", "8", "9", "10"] },
@@ -506,7 +506,7 @@ migrate((app) => {
     {
       name: "Pastinaca",
       variant: "Chirivia",
-      type: "raiz",
+      type: "root",
       slug: "pastinaca",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["2", "3", "4", "5", "9", "10"] },
@@ -524,7 +524,7 @@ migrate((app) => {
     {
       name: "Feijão Verde",
       variant: "Rasteiro",
-      type: "leguminosa",
+      type: "legume",
       slug: "feijao-verde-rasteiro",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["4", "5", "6", "7"] },
@@ -538,7 +538,7 @@ migrate((app) => {
     {
       name: "Feijão Verde",
       variant: "De Trepar",
-      type: "leguminosa",
+      type: "legume",
       slug: "feijao-verde-trepar",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["4", "5", "6", "7"] },
@@ -552,7 +552,7 @@ migrate((app) => {
     {
       name: "Ervilha",
       variant: "De Quebrar (Torta)",
-      type: "leguminosa",
+      type: "legume",
       slug: "ervilha-torta",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["1", "2", "3", "10", "11", "12"] },
@@ -566,7 +566,7 @@ migrate((app) => {
     {
       name: "Ervilha",
       variant: "De Desgranar",
-      type: "leguminosa",
+      type: "legume",
       slug: "ervilha-desgranar",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["1", "2", "3", "10", "11", "12"] },
@@ -580,7 +580,7 @@ migrate((app) => {
     {
       name: "Fava",
       variant: "Do Algarve / Aguadulce",
-      type: "leguminosa",
+      type: "legume",
       slug: "fava",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["1", "2", "10", "11", "12"] },
@@ -594,7 +594,7 @@ migrate((app) => {
     {
       name: "Grão-de-bico",
       variant: "Tradicional",
-      type: "leguminosa",
+      type: "legume",
       slug: "grao-de-bico",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["2", "3", "4"] },
@@ -612,7 +612,7 @@ migrate((app) => {
     {
       name: "Batata",
       variant: "Branca / Vermelha",
-      type: "tuberculo",
+      type: "tuber",
       slug: "batata",
       schedules: [
         { action: "plant", regions: ["1", "3", "4"], months: ["2", "3", "4", "8", "9"] },
@@ -626,7 +626,7 @@ migrate((app) => {
     {
       name: "Batata-doce",
       variant: "Lira / Beauregard",
-      type: "tuberculo",
+      type: "tuber",
       slug: "batata-doce",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4"] },
@@ -643,7 +643,7 @@ migrate((app) => {
     {
       name: "Tupinambo",
       variant: "Alcachofra-de-Jerusalém",
-      type: "tuberculo",
+      type: "tuber",
       slug: "tupinambo",
       schedules: [
         { action: "plant", regions: ["1", "3", "4"], months: ["2", "3", "4"] },
@@ -661,7 +661,7 @@ migrate((app) => {
     {
       name: "Cebola",
       variant: "Garrafal / Valenciana",
-      type: "bolbo",
+      type: "bulb",
       slug: "cebola",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["1", "10", "11", "12"] },
@@ -678,7 +678,7 @@ migrate((app) => {
     {
       name: "Alho",
       variant: "Branco / Roxo",
-      type: "bolbo",
+      type: "bulb",
       slug: "alho",
       schedules: [
         { action: "plant", regions: ["1", "3", "4"], months: ["1", "10", "11", "12"] },
@@ -692,7 +692,7 @@ migrate((app) => {
     {
       name: "Alho-francês",
       variant: "Comprido de Inverno",
-      type: "bolbo",
+      type: "bulb",
       slug: "alho-frances",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4", "5", "8", "9"] },
@@ -709,7 +709,7 @@ migrate((app) => {
     {
       name: "Chalota",
       variant: "Tradicional",
-      type: "bolbo",
+      type: "bulb",
       slug: "chalota",
       schedules: [
         { action: "plant", regions: ["1", "3", "4"], months: ["1", "2", "10", "11", "12"] },
@@ -727,7 +727,7 @@ migrate((app) => {
     {
       name: "Couve Portuguesa",
       variant: "Tronchuda / Penca",
-      type: "inflorescencia",
+      type: "inflorescence",
       slug: "couve-portuguesa",
       schedules: [
         { action: "nursery", regions: ["1", "2", "3", "4"], months: ["5", "6", "7"] },
@@ -741,7 +741,7 @@ migrate((app) => {
     {
       name: "Couve Galega",
       variant: "De Folha",
-      type: "inflorescencia",
+      type: "inflorescence",
       slug: "couve-galega",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4", "7", "8", "9"] },
@@ -756,7 +756,7 @@ migrate((app) => {
     {
       name: "Couve Coração",
       variant: "De Boi",
-      type: "inflorescencia",
+      type: "inflorescence",
       slug: "couve-coracao",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4", "7", "8", "9"] },
@@ -773,7 +773,7 @@ migrate((app) => {
     {
       name: "Couve Lombarda",
       variant: "Frisada",
-      type: "inflorescencia",
+      type: "inflorescence",
       slug: "couve-lombarda",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["5", "6", "7", "8"] },
@@ -790,7 +790,7 @@ migrate((app) => {
     {
       name: "Brócolo",
       variant: "Calabrese",
-      type: "inflorescencia",
+      type: "inflorescence",
       slug: "brocolo",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "6", "7", "8"] },
@@ -807,7 +807,7 @@ migrate((app) => {
     {
       name: "Couve-flor",
       variant: "Bola de Neve",
-      type: "inflorescencia",
+      type: "inflorescence",
       slug: "couve-flor",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["5", "6", "7", "8"] },
@@ -824,7 +824,7 @@ migrate((app) => {
     {
       name: "Couve-de-bruxelas",
       variant: "Tradicional",
-      type: "inflorescencia",
+      type: "inflorescence",
       slug: "couve-de-bruxelas",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["4", "5", "6"] },
@@ -841,7 +841,7 @@ migrate((app) => {
     {
       name: "Couve Roxa",
       variant: "Cabeça de Preto",
-      type: "inflorescencia",
+      type: "inflorescence",
       slug: "couve-roxa",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["3", "4", "5", "6", "7"] },
@@ -858,7 +858,7 @@ migrate((app) => {
     {
       name: "Alcachofra",
       variant: "Verde de Laon",
-      type: "inflorescencia",
+      type: "inflorescence",
       slug: "alcachofra",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4"] },
@@ -879,7 +879,7 @@ migrate((app) => {
     {
       name: "Salsa",
       variant: "Lisa",
-      type: "aromatica",
+      type: "herb",
       slug: "salsa",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["2", "3", "4", "5", "6", "7", "8", "9", "10"] },
@@ -893,7 +893,7 @@ migrate((app) => {
     {
       name: "Coentros",
       variant: "Português",
-      type: "aromatica",
+      type: "herb",
       slug: "coentros",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["2", "3", "4", "5", "6", "9", "10", "11"] },
@@ -907,7 +907,7 @@ migrate((app) => {
     {
       name: "Manjericão",
       variant: "Folha Grande / Genovês",
-      type: "aromatica",
+      type: "herb",
       slug: "manjericao",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["4", "5", "6"] },
@@ -927,7 +927,7 @@ migrate((app) => {
     {
       name: "Hortelã",
       variant: "Comum / Pimenta",
-      type: "aromatica",
+      type: "herb",
       slug: "hortela",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4"] },
@@ -944,7 +944,7 @@ migrate((app) => {
     {
       name: "Alecrim",
       variant: "Rosmaninho-da-horta",
-      type: "aromatica",
+      type: "herb",
       slug: "alecrim",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["3", "4", "5", "9"] },
@@ -959,7 +959,7 @@ migrate((app) => {
     {
       name: "Tomilho",
       variant: "Vulgar",
-      type: "aromatica",
+      type: "herb",
       slug: "tomilho",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["3", "4", "5"] },
@@ -974,7 +974,7 @@ migrate((app) => {
     {
       name: "Orégãos",
       variant: "Mediterrânico",
-      type: "aromatica",
+      type: "herb",
       slug: "oregaos",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4"] },
@@ -991,7 +991,7 @@ migrate((app) => {
     {
       name: "Cebolinho",
       variant: "Folha Fina",
-      type: "aromatica",
+      type: "herb",
       slug: "cebolinho",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["3", "4", "5", "9"] },
@@ -1015,7 +1015,7 @@ migrate((app) => {
     {
       name: "Milho Doce",
       variant: "Golden Bantam",
-      type: "outro",
+      type: "other",
       slug: "milho-doce",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["4", "5", "6"] },
@@ -1029,7 +1029,7 @@ migrate((app) => {
     {
       name: "Funcho",
       variant: "De Bolbo (Florença)",
-      type: "outro",
+      type: "other",
       slug: "funcho-de-bolbo",
       schedules: [
         { action: "direct_sowing", regions: ["1", "3", "4"], months: ["3", "4", "7", "8", "9"] },
@@ -1049,7 +1049,7 @@ migrate((app) => {
     {
       name: "Espargo",
       variant: "Verde (Mary Washington)",
-      type: "outro",
+      type: "other",
       slug: "espargo",
       schedules: [
         { action: "nursery", regions: ["1", "3", "4"], months: ["2", "3", "4"] },

@@ -134,15 +134,15 @@ export const ACTIONS: readonly CultivationAction[] = [
 ] as const
 
 export const CULTURE_TYPES: readonly CultureTypeInfo[] = [
-	{ id: 'folha', name: 'Folha', description: 'Alfaces, espinafres, acelgas, rúcula, etc.' },
-	{ id: 'fruto', name: 'Fruto', description: 'Tomates, pimentos, curgetes, abóboras, etc.' },
-	{ id: 'raiz', name: 'Raiz', description: 'Cenouras, rabanetes, beterrabas, nabos, etc.' },
-	{ id: 'leguminosa', name: 'Leguminosa', description: 'Feijões, ervilhas, favas, etc.' },
-	{ id: 'tuberculo', name: 'Tubérculo', description: 'Batatas, batatas-doces, etc.' },
-	{ id: 'bolbo', name: 'Bolbo', description: 'Cebolas, alhos, alhos-franceses, etc.' },
-	{ id: 'inflorescencia', name: 'Inflorescência / Couves', description: 'Couves, brócolos, couve-flor, etc.' },
-	{ id: 'aromatica', name: 'Aromática e Medicinal', description: 'Salsa, coentros, manjericão, etc.' },
-	{ id: 'outro', name: 'Outro', description: 'Outras variedades de cultivo.' }
+	{ id: 'leaf', name: 'Folha', description: 'Alfaces, espinafres, acelgas, rúcula, etc.' },
+	{ id: 'fruit', name: 'Fruto', description: 'Tomates, pimentos, curgetes, abóboras, etc.' },
+	{ id: 'root', name: 'Raiz', description: 'Cenouras, rabanetes, beterrabas, nabos, etc.' },
+	{ id: 'legume', name: 'Leguminosa', description: 'Feijões, ervilhas, favas, etc.' },
+	{ id: 'tuber', name: 'Tubérculo', description: 'Batatas, batatas-doces, etc.' },
+	{ id: 'bulb', name: 'Bolbo', description: 'Cebolas, alhos, alhos-franceses, etc.' },
+	{ id: 'inflorescence', name: 'Inflorescência / Couves', description: 'Couves, brócolos, couve-flor, etc.' },
+	{ id: 'herb', name: 'Aromática e Medicinal', description: 'Salsa, coentros, manjericão, etc.' },
+	{ id: 'other', name: 'Outro', description: 'Outras variedades de cultivo.' }
 ] as const
 
 export function getRegionById(id: number): Region | undefined {

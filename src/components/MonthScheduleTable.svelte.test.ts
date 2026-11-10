@@ -17,7 +17,7 @@ const mockSchedules: CultureScheduleRecord[] = [
         id: 'cult-1',
         name: 'Alface',
         variant: 'Quatro Estações',
-        type: 'folha',
+        type: 'leaf',
         slug: 'alface-quatro-estacoes',
         created: '2026-01-01',
         updated: '2026-01-01'
@@ -37,7 +37,7 @@ const mockSchedules: CultureScheduleRecord[] = [
         id: 'cult-1',
         name: 'Alface',
         variant: 'Quatro Estações',
-        type: 'folha',
+        type: 'leaf',
         slug: 'alface-quatro-estacoes',
         created: '2026-01-01',
         updated: '2026-01-01'
@@ -56,7 +56,7 @@ const mockSchedules: CultureScheduleRecord[] = [
       culture: {
         id: 'cult-2',
         name: 'Batata',
-        type: 'tuberculo',
+        type: 'tuber',
         slug: 'batata',
         created: '2026-01-01',
         updated: '2026-01-01'
@@ -75,7 +75,7 @@ const mockSchedules: CultureScheduleRecord[] = [
       culture: {
         id: 'cult-3',
         name: 'Tomate',
-        type: 'fruto',
+        type: 'fruit',
         slug: 'tomate',
         created: '2026-01-01',
         updated: '2026-01-01'

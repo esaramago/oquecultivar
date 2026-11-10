@@ -34,15 +34,15 @@ export interface CultivationAction {
 }
 
 export type CultureType =
-	| 'folha'
-	| 'fruto'
-	| 'raiz'
-	| 'leguminosa'
-	| 'tuberculo'
-	| 'bolbo'
-	| 'inflorescencia'
-	| 'aromatica'
-	| 'outro'
+	| 'leaf'
+	| 'fruit'
+	| 'root'
+	| 'legume'
+	| 'tuber'
+	| 'bulb'
+	| 'inflorescence'
+	| 'herb'
+	| 'other'
 
 export interface CultureTypeInfo {
 	id: CultureType

@@ -21,15 +21,15 @@ migrate((app) => {
         type: "select",
         required: true,
         values: [
-          "folha",
-          "fruto",
-          "raiz",
-          "leguminosa",
-          "tuberculo",
-          "bolbo",
-          "inflorescencia",
-          "aromatica",
-          "outro"
+          "leaf",
+          "fruit",
+          "root",
+          "legume",
+          "tuber",
+          "bulb",
+          "inflorescence",
+          "herb",
+          "other"
         ],
       },
       {

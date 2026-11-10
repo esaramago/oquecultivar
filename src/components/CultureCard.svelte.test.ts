@@ -7,7 +7,7 @@ const mockCulture: CultureRecord = {
   id: 'cult-1',
   name: 'Alface',
   variant: 'Quatro Estações',
-  type: 'folha',
+  type: 'leaf',
   slug: 'alface-quatro-estacoes',
   created: '2026-01-01',
   updated: '2026-01-01'
